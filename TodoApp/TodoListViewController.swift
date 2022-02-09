@@ -16,19 +16,8 @@ class TodoListViewController: UITableViewController {
         super.viewDidLoad()
         
         print(dataFilePath)
-        //MARK: -userdefaultで「todoリスト」のデータをローカルに保存する
-        let newItem = Item()
-        newItem.title = "Find Mile"
-        itemArray.append(newItem)
-        
-        let newItem2 = Item()
-        newItem2.title = "Hello"
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.title = "see you"
-        itemArray.append(newItem3)
-        
+                
+        loadItems()
         
 //        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
 //            itemArray = items
@@ -98,6 +87,17 @@ class TodoListViewController: UITableViewController {
         }
         self.tableView.reloadData()
     }
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error")
+            }
+        }
+    }
 }
+
 
 

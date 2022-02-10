@@ -11,12 +11,13 @@ import CoreData
 class TodoListViewController: UITableViewController {
     
     var itemArray = [Item]()
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+  
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 //        print(dataFilePath)
         
 //        loadItems()
@@ -89,7 +90,7 @@ class TodoListViewController: UITableViewController {
     }
     
     
-//    
+//
 //    func loadItems() {
 //        if let data = try? Data(contentsOf: dataFilePath!) {
 //            let decoder = PropertyListDecoder()

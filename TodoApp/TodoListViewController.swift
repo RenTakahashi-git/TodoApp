@@ -17,7 +17,7 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         //        print(dataFilePath)
         loadItems()
         
@@ -48,10 +48,10 @@ class TodoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        context.delete(itemArray[indexPath.row])
-        itemArray.remove(at: indexPath.row)
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
         
-//        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         saveItems()
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -100,6 +100,23 @@ class TodoListViewController: UITableViewController {
         } catch {
             print("Error in fetching request")
         }
+    }
+    
+}
+//MARK: -searchBar Extensinons
+extension TodoListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        request.predicate = NSPredicate(format: "title contains[cd] %@", searchBar.text!)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error in fetching request")
+        }
+        tableView.reloadData()
+        
     }
 }
 

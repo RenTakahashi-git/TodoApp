@@ -11,14 +11,14 @@ import CoreData
 class CategoryTableViewController: UITableViewController {
     var categories = [Category]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
     }
     
     
-        //MARK: -Tableview Datasource
+    //MARK: -Tableview Datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
@@ -29,7 +29,19 @@ class CategoryTableViewController: UITableViewController {
         return cell
     }
     
-        //MARK: -Data manipulation
+    //MARK: -Tableview Delegete
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destiationVC = segue.destination as! TodoListViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destiationVC.selectedCategory = categories[indexPath.row]
+        }
+        
+    }
+    
+    //MARK: -Data manipulation
     func saveCategories() {
         do {
             try context.save()
@@ -48,11 +60,8 @@ class CategoryTableViewController: UITableViewController {
         }
         tableView.reloadData()
     }
-        
-        //MARK: -ADD New Categorys
-        
     
-
+    //MARK: -ADD New Categorys
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
@@ -70,6 +79,6 @@ class CategoryTableViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //MARK: -Tableview Delegete
+    
     
 }

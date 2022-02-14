@@ -6,9 +6,10 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class CategoryTableViewController: UITableViewController {
+    let realm = try! Realm()
     var categories = [Category]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -42,23 +43,24 @@ class CategoryTableViewController: UITableViewController {
     }
     
     //MARK: -Data manipulation
-    func saveCategories() {
+    func save(category: Category) {
         do {
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
             print("Saving error")
         }
         tableView.reloadData()
     }
     func loadCategories() {
-        let request: NSFetchRequest<Category> = Category.fetchRequest()
-        
-        do {
-            categories = try context.fetch(request)
-        } catch {
-            print("error loading Categories")
-        }
-        tableView.reloadData()
+//        let request: NSFetchRequest<Category> = Category.fetchRequest()
+//        do {
+//            categories = try context.fetch(request)
+//        } catch {
+//            print("error loading Categories")
+//        }
+//        tableView.reloadData()
     }
     
     //MARK: -ADD New Categorys
@@ -66,10 +68,10 @@ class CategoryTableViewController: UITableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "ADD", style: .default) { (action) in
-            let newCategory = Category(context: self.context)
+            let newCategory = Category()
             newCategory.name = textField.text!
             self.categories.append(newCategory)
-            self.saveCategories()
+            self.save(category: newCategory)
         }
         alert.addAction(action)
         alert.addTextField { (field) in

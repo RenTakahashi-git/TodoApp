@@ -45,7 +45,7 @@ class TodoListViewController: UITableViewController {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
-            cell.textLabel?.text = "NOItems"
+            cell.textLabel?.text = "NoItems"
         }
         return cell
         
@@ -55,7 +55,16 @@ class TodoListViewController: UITableViewController {
     //MARK: -TableView Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let item = todoItems?[indexPath.row] {
+            do {
+                try realm.write {
+                    item.done = !item.done
+                }
+            } catch {
+                print("Error in saving done status")
+            }
+        }
+        tableView.reloadData()
         //        context.delete(itemArray[indexPath.row])
         //        itemArray.remove(at: indexPath.row)
         

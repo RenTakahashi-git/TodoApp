@@ -10,7 +10,7 @@ import RealmSwift
 
 class CategoryTableViewController: UITableViewController {
     let realm = try! Realm()
-    var categories : Results<Category>?
+    var categories: Results<Category>?
     
     override func viewDidLoad() {
         super.viewDidLoad()

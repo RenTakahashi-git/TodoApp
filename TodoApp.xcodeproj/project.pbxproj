@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B1DE20D27BF600F000850BE /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1DE20C27BF600F000850BE /* SwipeTableViewController.swift */; };
 		4B3B737027B9F92500D370C3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3B736F27B9F92500D370C3 /* Item.swift */; };
 		4B3B737227B9F95500D370C3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3B737127B9F95500D370C3 /* Category.swift */; };
 		4BA80EE327B69DCE00E7AA6B /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA80EE227B69DCE00E7AA6B /* CategoryTableViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4B1DE20C27BF600F000850BE /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		4B3B736F27B9F92500D370C3 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4B3B737127B9F95500D370C3 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4BA80EE227B69DCE00E7AA6B /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				4BA80EE227B69DCE00E7AA6B /* CategoryTableViewController.swift */,
 				4BB70A8527B0F6C4004A51DF /* TodoListViewController.swift */,
+				4B1DE20C27BF600F000850BE /* SwipeTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				4BB70A8627B0F6C4004A51DF /* TodoListViewController.swift in Sources */,
 				4BA80EE327B69DCE00E7AA6B /* CategoryTableViewController.swift in Sources */,
 				4BB70A8227B0F6C4004A51DF /* AppDelegate.swift in Sources */,
+				4B1DE20D27BF600F000850BE /* SwipeTableViewController.swift in Sources */,
 				4B3B737027B9F92500D370C3 /* Item.swift in Sources */,
 				4BB70A8427B0F6C4004A51DF /* SceneDelegate.swift in Sources */,
 				4B3B737227B9F95500D370C3 /* Category.swift in Sources */,

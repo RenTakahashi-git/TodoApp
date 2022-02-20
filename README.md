@@ -1,4 +1,4 @@
 # TodoApp
-RealmとChameleonFrameworkを用いたtodoアプリです。
+Realm / ChameleonFramework / SwipeCellKitを用いたTODOアプリです。
   
 todoリストをカテゴリ別で分けることができ、ランダムでそのカテゴリに色がつきます。

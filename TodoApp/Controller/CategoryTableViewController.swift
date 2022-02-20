@@ -20,7 +20,15 @@ class CategoryTableViewController: SwipeTableViewController {
         tableView.rowHeight = 80.0
         tableView.separatorStyle = .none
     }
-    
+//    override func viewWillAppear(_ animated: Bool) {
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithOpaqueBackground()
+//        appearance.backgroundColor = UIColor(hexString: "C7C7CC")
+//        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+//        view.backgroundColor = UIColor(hexString: "C7C7CC")
+//    }
+//    
     
     //MARK: -Tableview Datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,8 +37,12 @@ class CategoryTableViewController: SwipeTableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        cell.textLabel?.text = categories?[indexPath.row].name ?? "No Category"
-        cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].color ?? "273145")
+        if let category = categories?[indexPath.row] {
+            guard let categoryColor = UIColor(hexString: category.color) else {fatalError()}
+            cell.textLabel?.text = categories?[indexPath.row].name ?? "No Category"
+            cell.backgroundColor = categoryColor
+            cell.textLabel?.textColor = ContrastColorOf(categoryColor, returnFlat: true)
+        }
         return cell
     }
     

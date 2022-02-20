@@ -13,6 +13,8 @@ class TodoListViewController: SwipeTableViewController {
     
     var todoItems: Results<Item>?
     let realm = try! Realm()
+    
+    @IBOutlet weak var searchbar: UISearchBar!
     var selectedCategory : Category? {
         didSet {
             loadItems()
@@ -24,12 +26,23 @@ class TodoListViewController: SwipeTableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
         tableView.separatorStyle = .none
-//        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        //        print(dataFilePath)
-        
-        //        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
-        //            itemArray = items
-        //        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        if let colorHex = selectedCategory?.color {
+            
+            title = selectedCategory!.name
+            guard let navBar = navigationController?.navigationBar else {fatalError("NavigationContoller Eror")}
+            if let navBarColor = UIColor(hexString: colorHex) {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+//                appearance.backgroundColor = navBarColor
+                appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+                navigationController?.navigationBar.scrollEdgeAppearance = appearance
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
+                searchbar.barTintColor = UIColor(hexString: colorHex)
+            }
+            
+        }
     }
     
     
@@ -64,7 +77,7 @@ class TodoListViewController: SwipeTableViewController {
         if let item = todoItems?[indexPath.row] {
             do {
                 try realm.write {
-//                    realm.delete(item)
+                    //                    realm.delete(item)
                     item.done = !item.done
                 }
             } catch {
@@ -132,12 +145,12 @@ class TodoListViewController: SwipeTableViewController {
                     realm.delete(item)
                 }
             } catch {
-                 print("error in delelte todo item")
+                print("error in delelte todo item")
             }
             
         }
     }
-
+    
     
 }
 //MARK: -searchBar Extensinons
@@ -146,7 +159,7 @@ extension TodoListViewController: UISearchBarDelegate {
         todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dataCreated", ascending: true)
         tableView.reloadData()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
             loadItems()

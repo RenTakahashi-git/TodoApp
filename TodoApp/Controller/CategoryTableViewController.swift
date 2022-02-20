@@ -16,20 +16,12 @@ class CategoryTableViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+        self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "C7C7CC")
         loadCategories()
         tableView.rowHeight = 80.0
         tableView.separatorStyle = .none
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        let appearance = UINavigationBarAppearance()
-//        appearance.configureWithOpaqueBackground()
-//        appearance.backgroundColor = UIColor(hexString: "C7C7CC")
-//        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-//        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-//        view.backgroundColor = UIColor(hexString: "C7C7CC")
-//    }
-//    
-    
+//   
     //MARK: -Tableview Datasource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories?.count ?? 1
@@ -50,6 +42,7 @@ class CategoryTableViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destiationVC = segue.destination as! TodoListViewController
         if let indexPath = tableView.indexPathForSelectedRow {
@@ -69,10 +62,12 @@ class CategoryTableViewController: SwipeTableViewController {
         }
         tableView.reloadData()
     }
+    
     func loadCategories() {
         categories = realm.objects(Category.self)
         tableView.reloadData()
     }
+    
     //MARK: -Delete Data from swipe
     override func updateModel(at indexpath: IndexPath) {
         super.updateModel(at: indexpath)
